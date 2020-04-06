@@ -1,0 +1,5 @@
+//archivos para ignorar
+.settings/
+bin/
+.classpath
+.project
