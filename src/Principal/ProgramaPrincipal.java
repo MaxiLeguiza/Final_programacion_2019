@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 import Conexion.Conectarse;
 import Vistas.ControladorLogin;
+import Vistas.ControladorMenuRegistro;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 public class ProgramaPrincipal extends Application {
 	static ProgramaPrincipal _instance;
 	private Stage primaryStage;
+	private Stage menuRegistro;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -25,7 +26,7 @@ public class ProgramaPrincipal extends Application {
 		this.primaryStage.setTitle("MiTienda");
 
 		try {
-			
+
 			FXMLLoader l = new FXMLLoader();
 			l.setLocation(ControladorLogin.class.getResource("Login.fxml"));
 			AnchorPane root = (AnchorPane) l.load();
@@ -33,14 +34,14 @@ public class ProgramaPrincipal extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
-			
+
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static ProgramaPrincipal getInstance() {
 		return _instance;
 	}
@@ -53,30 +54,60 @@ public class ProgramaPrincipal extends Application {
 		return primaryStage;
 	}
 
-
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	public void login(String usuario,String contrasenia) {
 
-		String sql = "SELECT * FROM usuarios WHERE (`usuario`='" + usuario + "' AND `contrasenia`='" + contrasenia+ "')";
+	public void login(String usuario, String contrasenia) {
+
+		String sql = "SELECT * FROM usuarios WHERE (`usuario`='" + usuario + "' AND `contrasenia`='" + contrasenia
+				+ "')";
 		Statement stmt;
 		try {
 			stmt = Conectarse.conexion().createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 		} catch (SQLException e) {
-		
+
 			e.printStackTrace();
 		}
-		
-		
-//		if (rs.next())
-//			abrirMenu();
-//		else
-//			throw new Exception("El usuario y la contraseña son incorrectos");
+
 	}
-	
+
+	public void menuRegistro() {
+
+		if (menuRegistro != null)
+			if (menuRegistro.isShowing()) {
+				{
+					menuRegistro.requestFocus();
+					return;
+				}
+			}
+
+		FXMLLoader l = new FXMLLoader();
+		l.setLocation(ControladorLogin.class.getResource("MenuRegistro.fxml"));
+
+		AnchorPane root;
+
+		try {
+			root = (AnchorPane) l.load();
+			Scene scene = new Scene(root);
+			menuRegistro = new Stage();
+			menuRegistro.setScene(scene);
+			menuRegistro.show();
+			menuRegistro.setResizable(false);
+			menuRegistro.setTitle("Registro");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+//	if (rs.next())
+//	abrirMenu();
+//else
+//	throw new Exception("El usuario y la contraseña son incorrectos");
+
 //	private void abrirMenu() {
 //		//***************************************************************************************************		
 //

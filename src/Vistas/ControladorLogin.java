@@ -21,15 +21,24 @@ public class ControladorLogin implements Initializable{
 	@FXML
 	private PasswordField contrasenia;
 	
+	
+
+	
 	@FXML
 	private void entrar() {
 		ProgramaPrincipal.getInstance().login(usuario.getText(), contrasenia.getText());
 		
 	}
+	
+	
+	@FXML
+	public void registrarse() {
+		ProgramaPrincipal.getInstance().menuRegistro();
+		
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-	
-		
 	}
 	
 	
